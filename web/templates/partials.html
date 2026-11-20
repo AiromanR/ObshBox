@@ -1,0 +1,61 @@
+{{define "document_head"}}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{.Title}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/app.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
+{{end}}
+
+{{define "header"}}
+<header class="bg-white border-b border-gray-300">
+    <div class="mx-auto max-w-5xl px-4 py-3 flex items-center gap-4">
+        <a href="/" class="text-xl font-bold">IndieObshBox</a>
+        <div class="ml-auto flex gap-2">
+            <button type="button" disabled class="px-3 py-1.5 text-sm bg-blue-600 text-white opacity-60">+ Подать</button>
+            <button type="button" disabled class="px-3 py-1.5 text-sm border border-gray-400 text-gray-500 opacity-60">Профиль</button>
+        </div>
+    </div>
+</header>
+{{end}}
+
+{{define "footer"}}
+<footer class="mx-auto max-w-5xl px-4 py-6 text-xs text-gray-500">
+    IndieObshBox — доска объявлений общежития
+</footer>
+</body>
+</html>
+{{end}}
+
+{{define "listing_card"}}
+<article class="border border-gray-300 bg-white">
+    <a href="/listings/{{.ID}}">
+        <div class="h-44 bg-gray-300"></div>
+        <div class="p-3">
+            <span class="inline-block px-2 py-0.5 text-xs font-semibold {{dealClass .DealType}}">{{.DealType.Label}}</span>
+            {{if not (isActive .Status)}}
+                <span class="inline-block px-2 py-0.5 text-xs font-semibold {{statusClass .Status}}">{{.Status.Label}}</span>
+            {{end}}
+            <h3 class="mt-2 font-semibold leading-snug">{{.Title}}</h3>
+            <p class="mt-1 text-lg font-bold {{priceClass .DealType}}">{{.PriceLabel}}</p>
+            <p class="mt-1 text-xs text-gray-500">{{.Dormitory.Name}} · {{.PublishedLabel}}</p>
+        </div>
+    </a>
+</article>
+{{end}}
+
+{{define "listing_results"}}
+<p class="mb-3 text-sm text-gray-600">Объявлений: {{len .Listings}}</p>
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+    {{range .Listings}}
+        {{template "listing_card" .}}
+    {{else}}
+        <p class="col-span-2 py-10 text-center text-gray-500">Ничего не найдено</p>
+    {{end}}
+</div>
+{{end}}

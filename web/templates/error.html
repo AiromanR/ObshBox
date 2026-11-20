@@ -1,0 +1,12 @@
+{{define "error"}}
+{{template "document_head" .}}
+{{template "header" .}}
+
+<main class="mx-auto max-w-3xl px-4 py-20 text-center">
+    <p class="text-5xl font-bold text-gray-300">{{.Code}}</p>
+    <h1 class="mt-3 text-xl font-bold">{{.Message}}</h1>
+    <a href="/" class="mt-6 inline-block bg-blue-600 px-4 py-2 text-sm font-semibold text-white">К ленте объявлений</a>
+</main>
+
+{{template "footer" .}}
+{{end}}
